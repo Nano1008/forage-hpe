@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class EmployeeController {
-    @Autowired
-    private EmployeeManager employeeManager;
-
-    @GetMapping(path = "/employees")
-    public Employees getEmployees() {
-        return employeeManager.getAllEmployees();
+    private final EmployeeService employeeService;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
-    @PostMapping(path = "/employees")
-    public ResponseEntity<Object> addEmployee (@RequestBody Employee employee) {
-        Integer id = employeeManager.getAllEmployees().getEmployees().size() + 1;
-        employee.setId(id);
-        employeeManager.addEmployee(employee);
-        return ResponseEntity.ok().build();
+    @GetMapping("/employees")
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        return ResponseEntity.ok(employeeService.getAllEmployees());
+    }
+
+    @PostMapping("/employees")
+    public Employee addEmployee (@RequestBody Employee employee) {
+        return employeeService.addEmployee(employee);
     }
 }
