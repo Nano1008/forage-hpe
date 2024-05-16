@@ -10,6 +10,9 @@ This is a REST API to manage a list of employees.
 * MySQL Connector
 ## Endpoints & Operations
 GET /employees: Retrieves the full list of employees.
+
 POST /employees: Creates a new employee entry.
+
 PUT /employees/{id}: Updates an existing employee entry.
+
 DELETE /employees/{id}: Deletes an employee entry.
